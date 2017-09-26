@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/oneMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/standard_margin"
+                android:paddingBottom="@dimen/mini_margin"
+                android:paddingLeft="@dimen/standard_margin"
+                android:paddingRight="@dimen/mini_margin"
+                android:adjustViewBounds="true"
+                android:src="@drawable/play"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/twoMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/standard_margin"
+                android:paddingBottom="@dimen/mini_margin"
+                android:paddingLeft="@dimen/mini_margin"
+                android:paddingRight="@dimen/standard_margin"
+                android:adjustViewBounds="true"
+                android:src="@drawable/play"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
