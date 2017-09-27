@@ -12,8 +12,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import braintrain.explead.com.braintrain.R;
+import braintrain.explead.com.braintrain.ui.BaseActivity;
 
 /**
  * Created by develop on 26.09.2017.
@@ -35,6 +38,7 @@ public class TimeCountingView extends RelativeLayout {
 
     private int width;
 
+    private Timer timer;
 
     private Handler handler = new Handler();
     private Runnable run = new Runnable() {
@@ -70,6 +74,7 @@ public class TimeCountingView extends RelativeLayout {
     }
 
     public void create(int width, OnCountingListener listener) {
+        this.removeAllViews();
         this.width = width;
         this.listener = listener;
 
@@ -105,11 +110,43 @@ public class TimeCountingView extends RelativeLayout {
         value = 3;
         setText(value);
         this.setVisibility(View.VISIBLE);
-        handler.postDelayed(run, 0);
+
+        timer = new Timer();
+        resumeCounting();
+        //handler.postDelayed(run, 0);
     }
 
     public void endCounting() {
         listener.endCounting();
         this.setVisibility(View.GONE);
+    }
+
+    public void stopCounting() {
+        timer.cancel();
+        timer.purge();
+    }
+
+    public void resumeCounting() {
+        timer.schedule(new TimerCountingTask(), 0, 1000);
+    }
+
+
+    private class TimerCountingTask extends TimerTask {
+
+        @Override
+        public void run() {
+            ((BaseActivity)context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(value == 0) {
+                        stopCounting();
+                        endCounting();
+                    }
+                    setText(value);
+                    value--;
+                }
+            });
+
+        }
     }
 }

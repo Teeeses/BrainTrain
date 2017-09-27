@@ -2,6 +2,7 @@ package braintrain.explead.com.braintrain.views.repeat_bunch;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -27,7 +28,7 @@ public class CellRepeatView extends RelativeLayout implements CellRepeat.OnClick
     private View view;
 
     private int normalColor;
-    private int trueColor = Color.WHITE;
+    private int lightColor = Color.YELLOW;
     private int errorColor = Color.RED;
 
     public CellRepeatView(Context context, int size) {
@@ -72,14 +73,24 @@ public class CellRepeatView extends RelativeLayout implements CellRepeat.OnClick
         this.addView(view);
     }
 
-
     @Override
-    public void onClickTrue() {
-
+    public void onError() {
+        view.setBackgroundColor(errorColor);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.setBackgroundColor(normalColor);
+            }
+        }, 100);
     }
 
     @Override
-    public void onClickError() {
+    public void onExtinguish() {
+        view.setBackgroundColor(normalColor);
+    }
 
+    @Override
+    public void onLight() {
+        view.setBackgroundColor(lightColor);
     }
 }

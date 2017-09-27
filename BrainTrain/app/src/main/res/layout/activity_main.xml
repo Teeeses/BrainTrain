@@ -6,9 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/fragmentContainer"
+
+    <github.chenupt.springindicator.viewpager.ScrollerViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
 
 </RelativeLayout>

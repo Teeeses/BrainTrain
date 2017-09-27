@@ -25,7 +25,7 @@ public class SelectModeFragment  extends Fragment {
         oneMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).openTotalChaosFragment();
+                //((MainActivity)getActivity()).openTotalChaosFragment();
             }
         });
 
@@ -33,7 +33,7 @@ public class SelectModeFragment  extends Fragment {
         twoMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).openRepeatBunchFragment();
+                //((MainActivity)getActivity()).openRepeatBunchFragment();
             }
         });
 

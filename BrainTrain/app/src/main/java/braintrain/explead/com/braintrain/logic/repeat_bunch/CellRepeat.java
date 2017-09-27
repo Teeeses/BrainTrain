@@ -7,8 +7,8 @@ package braintrain.explead.com.braintrain.logic.repeat_bunch;
 public class CellRepeat {
 
     public interface OnClickedCell {
-        void onClickTrue();
-        void onClickError();
+        void onError();
+        void onExtinguish();
         void onLight();
     }
 
@@ -18,23 +18,27 @@ public class CellRepeat {
     private int x;
     private int y;
 
-    public static int CLICKED = 0, NO_CLICKED = 1;
-    private int status = NO_CLICKED;
+    public static int NORMAL = 0, CLICKED = 1;
+    private int status = NORMAL;
 
-    public CellRepeat(int value, int x, int y) {
-        this.value = value;
+    public CellRepeat(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-
-    public void setStatusTrue() {
+    public void light() {
         status = CLICKED;
-        listener.onClickTrue();
+        listener.onLight();
     }
 
+    public void extinguish() {
+        status = NORMAL;
+        listener.onExtinguish();
+    }
+
+
     public void error() {
-        listener.onClickError();
+        listener.onError();
     }
 
     public void setListener(OnClickedCell listener) {

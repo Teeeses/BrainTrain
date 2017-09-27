@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BrainTrain</string>
+
+
+
+    <string name="total_inscription">Пройдите предыдущий уровень за %s секунд.</string>
+    <string name="best_time">Лучшее время - %s</string>
 </resources>

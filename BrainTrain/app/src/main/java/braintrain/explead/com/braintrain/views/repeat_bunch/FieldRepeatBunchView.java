@@ -1,6 +1,7 @@
 package braintrain.explead.com.braintrain.views.repeat_bunch;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -10,12 +11,22 @@ import android.widget.Toast;
 
 import braintrain.explead.com.braintrain.logic.repeat_bunch.CellRepeat;
 import braintrain.explead.com.braintrain.logic.repeat_bunch.FieldRepeatBunch;
+import braintrain.explead.com.braintrain.views.total_chaos_views.FieldTotalChaosView;
 
 /**
  * Created by develop on 25.09.2017.
  */
 
 public class FieldRepeatBunchView extends RelativeLayout implements FieldRepeatBunch.OnFieldListener {
+
+    public interface OnRepeatBunchListener {
+        void onWin();
+        void onError();
+        void onLight();
+        void onExtinguish();
+    }
+
+    private OnRepeatBunchListener listener;
 
     private Context context;
     private FieldRepeatBunch field;
@@ -44,8 +55,8 @@ public class FieldRepeatBunchView extends RelativeLayout implements FieldRepeatB
         this.context = context;
     }
 
-    public void setField(int size, int sizeField) {
-        field = new FieldRepeatBunch(size);
+    public void setField(int count, int sizeField) {
+        field = new FieldRepeatBunch(count);
         field.setListener(this);
         this.sizeField = sizeField;
         sizeCell = sizeField/field.getSize();
@@ -58,6 +69,7 @@ public class FieldRepeatBunchView extends RelativeLayout implements FieldRepeatB
     }
 
     public void createFieldView() {
+        this.removeAllViews();
         fieldView = new CellRepeatView[field.getSize()][field.getSize()];
         for(int i = 0; i < field.getSize(); i++) {
             LinearLayout horizontalLayout = new LinearLayout(context);
@@ -81,6 +93,16 @@ public class FieldRepeatBunchView extends RelativeLayout implements FieldRepeatB
         }
     }
 
+    public void startGame() {
+        field.lightCells();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                field.extinguishCells();
+            }
+        }, 3000);
+    }
+
     public void setClickable(boolean value) {
         for(int i = 0; i < field.getSize(); i++) {
             for(int j = 0; j < field.getSize(); j++) {
@@ -91,16 +113,26 @@ public class FieldRepeatBunchView extends RelativeLayout implements FieldRepeatB
 
     @Override
     public void onWin() {
-        Toast.makeText(context, "Победа", Toast.LENGTH_SHORT).show();
+        listener.onWin();
     }
 
     @Override
-    public void onError(CellRepeat cellRepeat) {
+    public void onError(final CellRepeat cellRepeat) {
+        Toast.makeText(context, "Ошибка", Toast.LENGTH_SHORT).show();
+        listener.onError();
+    }
 
+    public void setListener(OnRepeatBunchListener listener) {
+        this.listener = listener;
     }
 
     @Override
-    public void onTrue(CellRepeat cellRepeat) {
+    public void onLight() {
+        listener.onLight();
+    }
 
+    @Override
+    public void onExtinguish() {
+        listener.onExtinguish();
     }
 }

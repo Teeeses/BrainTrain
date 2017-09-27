@@ -16,28 +16,33 @@ import braintrain.explead.com.braintrain.views.repeat_bunch.FieldRepeatBunchView
  * Created by develop on 26.09.2017.
  */
 
-public class RepeatBunchFragment extends Fragment {
+public class RepeatBunchFragment extends Fragment implements FieldRepeatBunchView.OnRepeatBunchListener {
 
     private FieldRepeatBunchView fieldView;
     private TimeCountingView countingView;
 
+    private int count = 4;
+
+    private View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_repeat_bunch, container, false);
+        view = inflater.inflate(R.layout.fragment_repeat_bunch, container, false);
 
-        createField(view);
-        createCounting(view);
+        fieldView = (FieldRepeatBunchView) view.findViewById(R.id.fieldView);
+        countingView = (TimeCountingView) view.findViewById(R.id.countingView);
+        createField();
+        createCounting(false);
 
         return view;
     }
 
-    private void createField(View view) {
-        fieldView = (FieldRepeatBunchView) view.findViewById(R.id.fieldView);
-        fieldView.setField(6, (int) App.getWidthScreen());
+    private void createField() {
+        fieldView.setField(count, (int) App.getWidthScreen());
+        fieldView.setListener(this);
     }
 
-    private void createCounting(View view) {
-        countingView = (TimeCountingView) view.findViewById(R.id.countingView);
+    private void createCounting(final boolean create) {
         countingView.create((int) App.getWidthScreen(), new TimeCountingView.OnCountingListener() {
             @Override
             public void startCounting() {
@@ -47,8 +52,33 @@ public class RepeatBunchFragment extends Fragment {
             @Override
             public void endCounting() {
                 fieldView.setClickable(true);
+                if(create) {
+                    createField();
+                }
+                fieldView.startGame();
             }
         });
         countingView.startCounting();
+    }
+
+    @Override
+    public void onWin() {
+        count++;
+        createCounting(true);
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onLight() {
+        fieldView.setClickable(false);
+    }
+
+    @Override
+    public void onExtinguish() {
+        fieldView.setClickable(true);
     }
 }
