@@ -27,7 +27,7 @@ public class FieldTotalChaosView extends RelativeLayout implements FieldTotalCha
     private FieldTotalChaos field;
     private int sizeField;
 
-    private int sizeCell;
+    private float sizeCell;
 
     private CellTotalView[][] fieldView;
 
@@ -74,7 +74,7 @@ public class FieldTotalChaosView extends RelativeLayout implements FieldTotalCha
         for(int i = 0; i < field.getSize(); i++) {
             LinearLayout horizontalLayout = new LinearLayout(context);
             horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
-            horizontalLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, sizeCell));
+            horizontalLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int)sizeCell));
             for(int j = 0; j < field.getSize(); j++) {
                 final CellTotal cellTotal = field.getCell(i, j);
                 CellTotalView cellTotalView = new CellTotalView(context, sizeCell);

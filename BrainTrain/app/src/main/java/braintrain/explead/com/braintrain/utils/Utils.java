@@ -4,6 +4,7 @@ package braintrain.explead.com.braintrain.utils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 public class Utils {
 
@@ -27,6 +28,11 @@ public class Utils {
         DateFormat formatter = new SimpleDateFormat("mm:ss");
         String dateFormatted = formatter.format(date);
         return dateFormatted;
+    }
+
+    public static int randInt(int min, int max) {
+        Random rand = new Random();
+        return rand.nextInt((max - min) + 1) + min;
     }
 
 }

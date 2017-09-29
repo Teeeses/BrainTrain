@@ -4,7 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import braintrain.explead.com.braintrain.ui.fragment_traning.MenuTotalChaosFragment;
+import braintrain.explead.com.braintrain.ui.MenuSearchingElementFragment;
+import braintrain.explead.com.braintrain.ui.MenuTotalChaosFragment;
+import braintrain.explead.com.braintrain.ui.fragment_traning.RepeatBunchFragment;
 
 /**
  * Created by develop on 13.12.2016.
@@ -12,7 +14,7 @@ import braintrain.explead.com.braintrain.ui.fragment_traning.MenuTotalChaosFragm
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
     private Fragment[] fragments = {
-            new MenuTotalChaosFragment()
+            new MenuTotalChaosFragment(), new RepeatBunchFragment(), new MenuSearchingElementFragment()
     };
 
     public MyPagerAdapter(FragmentManager fragmentManager) {

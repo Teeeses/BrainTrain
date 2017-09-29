@@ -26,7 +26,7 @@ public class CellTotalView extends RelativeLayout implements CellTotal.OnClicked
 
     private Context context;
     private CellTotal mCellTotal;
-    private int size;
+    private float size;
     private float globalX;
     private float globalY;
 
@@ -36,7 +36,7 @@ public class CellTotalView extends RelativeLayout implements CellTotal.OnClicked
     private int trueColor = Color.WHITE;
     private int errorColor = Color.RED;
 
-    public CellTotalView(Context context, int size) {
+    public CellTotalView(Context context, float size) {
         super(context);
         this.size = size;
         init(context);
@@ -54,7 +54,7 @@ public class CellTotalView extends RelativeLayout implements CellTotal.OnClicked
 
     public void init(Context context) {
         this.context = context;
-        normalColor = context.getResources().getColor(R.color.colorPrimary);
+        normalColor = context.getResources().getColor(R.color.color_tab);
     }
 
     public void create(CellTotal cellTotal, float sizeText) {
@@ -62,10 +62,11 @@ public class CellTotalView extends RelativeLayout implements CellTotal.OnClicked
         this.mCellTotal.setListener(this);
 
 
-        LayoutParams params = new LayoutParams(size, size);
-        this.setPadding(2, 2, 2, 2);
+        LayoutParams params = new LayoutParams((int)size, (int)size);
+        int padding = context.getResources().getDimensionPixelOffset(R.dimen.radius)/2;
+        this.setPadding(padding, padding, padding, padding);
         this.setLayoutParams(params);
-        textView = (TextView) LayoutInflater.from(context).inflate(R.layout.total_chaos_cell_view, null, false);
+        textView = (TextView) LayoutInflater.from(context).inflate(R.layout.item_total_chaos_cell_view, null, false);
         textView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         textView.setBackgroundColor(normalColor);
         textView.setTextColor(context.getResources().getColor(R.color.white));

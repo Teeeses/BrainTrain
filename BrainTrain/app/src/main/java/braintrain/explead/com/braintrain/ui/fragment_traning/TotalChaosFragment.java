@@ -69,7 +69,8 @@ public class TotalChaosFragment extends Fragment implements FieldTotalChaosView.
     @Override
     public void onWin() {
         stopChronometer();
-        ((BaseActivity)getActivity()).setTotalChaosResult(mChronometer.getDrawingTime() - mChronometer.getBase(), size);
+        long time = SystemClock.elapsedRealtime() - mChronometer.getBase();
+        ((BaseActivity)getActivity()).setTotalChaosResult(time, size);
         getActivity().onBackPressed();
     }
 
@@ -80,7 +81,7 @@ public class TotalChaosFragment extends Fragment implements FieldTotalChaosView.
     public void resetChronometer() {
 
         try {
-            ((BaseActivity) getActivity()).runOnUiThread(new Runnable() {
+            getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     mChronometer.setBase(SystemClock.elapsedRealtime());

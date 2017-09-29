@@ -4,7 +4,7 @@
                 android:id="@+id/rootLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white">
+                android:background="@color/background" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,20 +16,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/gigant_text"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/container"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" >
 
         <braintrain.explead.com.braintrain.views.total_chaos_views.FieldTotalChaosView
             android:id="@+id/fieldView"
-            android:layout_width="400dp"
-            android:layout_height="400dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:background="@color/white"/>
 
         <braintrain.explead.com.braintrain.views.TimeCountingView

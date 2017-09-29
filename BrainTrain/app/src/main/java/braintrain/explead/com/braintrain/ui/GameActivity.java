@@ -1,11 +1,13 @@
-package braintrain.explead.com.braintrain;
+package braintrain.explead.com.braintrain.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
+import braintrain.explead.com.braintrain.R;
 import braintrain.explead.com.braintrain.ui.BaseActivity;
 import braintrain.explead.com.braintrain.ui.fragment_traning.RepeatBunchFragment;
+import braintrain.explead.com.braintrain.ui.fragment_traning.SearchingElementFragment;
 import braintrain.explead.com.braintrain.ui.fragment_traning.TotalChaosFragment;
 import braintrain.explead.com.braintrain.utils.Utils;
 
@@ -31,6 +33,8 @@ public class GameActivity extends BaseActivity {
             openTotalChaosFragment(level);
         } else if(mode == 2) {
             openRepeatBunchFragment();
+        } else if(mode == 3) {
+            openSearchingElementFragment();
         }
     }
 
@@ -48,6 +52,13 @@ public class GameActivity extends BaseActivity {
     public void openRepeatBunchFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         fragment = new RepeatBunchFragment();
+        transaction.replace(R.id.fragmentContainer, fragment);
+        transaction.commit();
+    }
+
+    public void openSearchingElementFragment() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        fragment = new SearchingElementFragment();
         transaction.replace(R.id.fragmentContainer, fragment);
         transaction.commit();
     }

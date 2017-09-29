@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_tab"
     tools:context=".ui.MainActivity">
 
 
     <github.chenupt.springindicator.viewpager.ScrollerViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center" />
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-</RelativeLayout>
+    <com.github.florent37.bubbletab.BubbleTab
+        android:id="@+id/bubbleTab"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:clipToPadding="false"
+        android:background="@color/light_background"
+        app:bubbleTab_circleColor="@color/color_tab"
+        app:bubbleTab_circleRatio="1.25"
+        app:bubbleTab_image1="@android:drawable/ic_dialog_info"
+        app:bubbleTab_image2="@android:drawable/ic_dialog_email"
+        app:bubbleTab_image3="@android:drawable/ic_dialog_info" />
+</LinearLayout>

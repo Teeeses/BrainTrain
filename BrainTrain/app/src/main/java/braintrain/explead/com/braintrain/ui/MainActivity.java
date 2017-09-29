@@ -2,20 +2,15 @@ package braintrain.explead.com.braintrain.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
-import braintrain.explead.com.braintrain.GameActivity;
+import com.github.florent37.bubbletab.BubbleTab;
+
 import braintrain.explead.com.braintrain.R;
 import braintrain.explead.com.braintrain.adapters.MyPagerAdapter;
 import braintrain.explead.com.braintrain.app.App;
-import braintrain.explead.com.braintrain.ui.fragment_traning.RepeatBunchFragment;
-import braintrain.explead.com.braintrain.ui.fragment_traning.TotalChaosFragment;
 import braintrain.explead.com.braintrain.utils.Utils;
 import github.chenupt.springindicator.viewpager.ScrollerViewPager;
 
@@ -41,9 +36,13 @@ public class MainActivity extends BaseActivity {
 
         viewPager = (ScrollerViewPager) findViewById(R.id.view_pager);
 
-        adapter = new MyPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
-        viewPager.fixScrollSpeed();
+
+        BubbleTab bubbleTab = (BubbleTab) findViewById(R.id.bubbleTab);
+        viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        bubbleTab.setupWithViewPager(viewPager);
+        //adapter = new MyPagerAdapter(getSupportFragmentManager());
+        //viewPager.setAdapter(adapter);
+        //viewPager.fixScrollSpeed();
 
     }
 
