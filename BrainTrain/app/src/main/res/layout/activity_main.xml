@@ -26,5 +26,6 @@
         app:bubbleTab_circleRatio="1.25"
         app:bubbleTab_image1="@android:drawable/ic_dialog_info"
         app:bubbleTab_image2="@android:drawable/ic_dialog_email"
-        app:bubbleTab_image3="@android:drawable/ic_dialog_info" />
+        app:bubbleTab_image3="@android:drawable/ic_dialog_info"
+        app:bubbleTab_image4="@android:drawable/ic_dialog_email" />
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import braintrain.explead.com.braintrain.ui.MenuSearchingElementFragment;
 import braintrain.explead.com.braintrain.ui.MenuTotalChaosFragment;
+import braintrain.explead.com.braintrain.ui.fragment_traning.CountingCellsFragment;
 import braintrain.explead.com.braintrain.ui.fragment_traning.RepeatBunchFragment;
 
 /**
@@ -14,7 +15,7 @@ import braintrain.explead.com.braintrain.ui.fragment_traning.RepeatBunchFragment
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
     private Fragment[] fragments = {
-            new MenuTotalChaosFragment(), new RepeatBunchFragment(), new MenuSearchingElementFragment()
+            new MenuTotalChaosFragment(), new RepeatBunchFragment(), new MenuSearchingElementFragment(), new CountingCellsFragment()
     };
 
     public MyPagerAdapter(FragmentManager fragmentManager) {

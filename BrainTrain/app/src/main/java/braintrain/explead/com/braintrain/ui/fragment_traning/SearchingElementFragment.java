@@ -19,7 +19,7 @@ import braintrain.explead.com.braintrain.logic.searching_element.FieldSearchingE
  * Created by develop on 29.09.2017.
  */
 
-public class SearchingElementFragment extends Fragment{
+public class SearchingElementFragment extends Fragment {
 
     private FieldSearchingElement field;
 
