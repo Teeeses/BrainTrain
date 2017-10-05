@@ -27,8 +27,6 @@ public class CellCountingCellsView extends RelativeLayout{
 
     private View view;
 
-    private int[] colors = {Color.YELLOW, Color.MAGENTA, Color.CYAN, Color.GREEN, Color.BLUE, Color.GRAY};
-
     public CellCountingCellsView(Context context, float size) {
         super(context);
         this.size = size;
@@ -57,7 +55,7 @@ public class CellCountingCellsView extends RelativeLayout{
         view.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         view.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_counting_cell_view));
         GradientDrawable  background = (GradientDrawable ) view.getBackground();
-        background.setColor(colors[cell.getId()]);
+        background.setColor(FieldCountingCellsView.colors[cell.getId()]);
 
         globalX = size * cell.getX();
         globalY = size * cell.getY();

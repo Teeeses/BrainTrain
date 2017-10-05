@@ -1,6 +1,7 @@
 package braintrain.explead.com.braintrain.views.counting_cells;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -24,6 +25,8 @@ public class FieldCountingCellsView extends RelativeLayout {
     private float sizeCell;
 
     private CellCountingCellsView[][] fieldView;
+
+    public static int[] colors = {Color.YELLOW, Color.MAGENTA, Color.CYAN, Color.GREEN, Color.BLUE, Color.RED};
 
     public FieldCountingCellsView(Context context) {
         super(context);
@@ -85,5 +88,9 @@ public class FieldCountingCellsView extends RelativeLayout {
                 fieldView[i][j].setClickable(value);
             }
         }
+    }
+
+    public FieldCountingCells getField() {
+        return field;
     }
 }

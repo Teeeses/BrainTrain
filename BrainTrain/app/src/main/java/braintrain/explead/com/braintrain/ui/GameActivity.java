@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import braintrain.explead.com.braintrain.R;
 import braintrain.explead.com.braintrain.ui.BaseActivity;
+import braintrain.explead.com.braintrain.ui.fragment_traning.CountingCellsFragment;
 import braintrain.explead.com.braintrain.ui.fragment_traning.RepeatBunchFragment;
 import braintrain.explead.com.braintrain.ui.fragment_traning.SearchingElementFragment;
 import braintrain.explead.com.braintrain.ui.fragment_traning.TotalChaosFragment;
@@ -35,6 +36,8 @@ public class GameActivity extends BaseActivity {
             openRepeatBunchFragment();
         } else if(mode == 3) {
             openSearchingElementFragment();
+        } else if(mode == 4) {
+            openCountingCellsFragment();
         }
     }
 
@@ -59,6 +62,13 @@ public class GameActivity extends BaseActivity {
     public void openSearchingElementFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         fragment = new SearchingElementFragment();
+        transaction.replace(R.id.fragmentContainer, fragment);
+        transaction.commit();
+    }
+
+    public void openCountingCellsFragment() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        fragment = new CountingCellsFragment();
         transaction.replace(R.id.fragmentContainer, fragment);
         transaction.commit();
     }
