@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 
 import braintrain.explead.com.braintrain.R;
 import braintrain.explead.com.braintrain.app.App;
+import braintrain.explead.com.braintrain.logic.counting_cells.FieldCountingCells;
+import braintrain.explead.com.braintrain.views.ChoiceForCountingCells;
 import braintrain.explead.com.braintrain.views.counting_cells.CellCountingCellsView;
 import braintrain.explead.com.braintrain.views.counting_cells.FieldCountingCellsView;
 
@@ -21,27 +23,53 @@ import braintrain.explead.com.braintrain.views.counting_cells.FieldCountingCells
 public class CountingCellsFragment extends Fragment {
 
     private FieldCountingCellsView fieldView;
+    private FieldCountingCells field;
 
+    private ChoiceForCountingCells choiceForCountingCells;
+    private View view;
     private int size;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_counting_cells, container, false);
+         view = inflater.inflate(R.layout.fragment_counting_cells, container, false);
 
+        choiceForCountingCells = (ChoiceForCountingCells) view.findViewById(R.id.choiceForCountingCells);
         fieldView = (FieldCountingCellsView) view.findViewById(R.id.fieldView);
-        View findCell = view.findViewById(R.id.findCell);
 
-        createField();
-
-        GradientDrawable background = (GradientDrawable ) findCell.getBackground();
-        background.setColor(FieldCountingCellsView.colors[fieldView.getField().getIndex()]);
+        choiceForCountingCells.post(new Runnable() {
+            @Override
+            public void run() {
+                createField();
+                createViews();
+            }
+        });
 
         return view;
     }
 
     private void createField() {
         size = 5;
-        fieldView.setField(size, (int) App.getWidthScreen());
+        field = new FieldCountingCells(size);
+    }
+
+    private void createViews() {
+        fieldView.setField(field, (int) App.getWidthScreen());
+        choiceForCountingCells.create(field.getChoices(), field.getCount(), new ChoiceForCountingCells.OnChoiceListener() {
+            @Override
+            public void ok() {
+                createField();
+                createViews();
+            }
+
+            @Override
+            public void error() {
+
+            }
+        });
+
+        View findCell = view.findViewById(R.id.findCell);
+        GradientDrawable background = (GradientDrawable ) findCell.getBackground();
+        background.setColor(FieldCountingCellsView.colors[field.getIndex()]);
     }
 
 }

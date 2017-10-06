@@ -72,7 +72,6 @@ public class FieldCountingCells {
         for(int i = 0; i < number; i++) {
             choices.add(count - place + i);
         }
-        Collections.shuffle(choices);
     }
 
     public ArrayList<Integer> getChoices() {

@@ -4,24 +4,18 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import braintrain.explead.com.braintrain.R;
 import braintrain.explead.com.braintrain.logic.counting_cells.CellCountingCells;
 import braintrain.explead.com.braintrain.logic.counting_cells.FieldCountingCells;
 
-/**
- * Created by develop on 02.10.2017.
- */
 
 public class FieldCountingCellsView extends RelativeLayout {
 
     private Context context;
     private FieldCountingCells field;
-    private int sizeField;
     private float sizeCell;
 
     private CellCountingCellsView[][] fieldView;
@@ -47,10 +41,9 @@ public class FieldCountingCellsView extends RelativeLayout {
         this.context = context;
     }
 
-    public void setField(int size, int sizeField) {
-        field = new FieldCountingCells(size);
-        this.sizeField = sizeField;
-        sizeCell = sizeField/(size+1);
+    public void setField(FieldCountingCells field, int sizeField) {
+        this.field = field;
+        sizeCell = sizeField/(field.getSize()+1);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
