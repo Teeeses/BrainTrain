@@ -6,55 +6,76 @@
     android:background="@color/light_blue">
 
     <RelativeLayout
-        android:id="@+id/topLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/more_standard_margin"
-        android:paddingBottom="@dimen/more_standard_margin">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:textColor="@color/white"
-                android:textSize="@dimen/more_standard_text"
-                android:text="Посчитайте количество - "/>
-
-            <View
-                android:id="@+id/findCell"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/bg_counting_cell_view"/>
-
-        </LinearLayout>
-    </RelativeLayout>
-
-    <braintrain.explead.com.braintrain.views.counting_cells.FieldCountingCellsView
-        android:id="@+id/fieldView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_below="@+id/topLayout"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_counting_cells_field"
-        android:alpha="0.7"/>
-
-    <RelativeLayout
+        android:id="@+id/menuLayout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/fieldView"
-        android:padding="@dimen/standard_margin">
+        android:background="@color/background">
 
-        <braintrain.explead.com.braintrain.views.ChoiceForCountingCells
-            android:id="@+id/choiceForCountingCells"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Начать"/>
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/gameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/topLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/more_standard_margin"
+            android:paddingBottom="@dimen/more_standard_margin">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/more_standard_text"
+                    android:text="Посчитайте количество - "/>
+
+                <View
+                    android:id="@+id/findCell"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/bg_counting_cell_view"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <braintrain.explead.com.braintrain.views.counting_cells.FieldCountingCellsView
+            android:id="@+id/fieldView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_below="@+id/topLayout"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_counting_cells_field"
+            android:alpha="0.7"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/fieldView"
+            android:padding="@dimen/standard_margin">
+
+            <braintrain.explead.com.braintrain.views.ChoiceForCountingCells
+                android:id="@+id/choiceForCountingCells"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
 
 </RelativeLayout>

@@ -25,7 +25,7 @@ public class MenuCountingCellsFragment extends Fragment {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).openGameActivity(4, 0);
+                //((MainActivity) getActivity()).openCountingCellsFragment();
             }
         });
 

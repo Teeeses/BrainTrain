@@ -16,7 +16,7 @@ import braintrain.explead.com.braintrain.logic.counting_cells.CellCountingCells;
  * Created by develop on 02.10.2017.
  */
 
-public class CellCountingCellsView extends RelativeLayout{
+public class CellCountingCellsView extends RelativeLayout {
 
 
     private Context context;
