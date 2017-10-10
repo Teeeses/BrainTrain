@@ -2,6 +2,7 @@ package braintrain.explead.com.braintrain.views.total_chaos_views;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -32,7 +33,7 @@ public class CellTotalView extends RelativeLayout implements CellTotal.OnClicked
 
     private TextView textView;
 
-    private int normalColor;
+    private Drawable normalColor;
     private int trueColor = Color.WHITE;
     private int errorColor = Color.RED;
 
@@ -54,7 +55,7 @@ public class CellTotalView extends RelativeLayout implements CellTotal.OnClicked
 
     public void init(Context context) {
         this.context = context;
-        normalColor = context.getResources().getColor(R.color.color_tab);
+        normalColor = context.getResources().getDrawable(R.drawable.bg_border);
     }
 
     public void create(CellTotal cellTotal, float sizeText) {
@@ -63,13 +64,12 @@ public class CellTotalView extends RelativeLayout implements CellTotal.OnClicked
 
 
         LayoutParams params = new LayoutParams((int)size, (int)size);
-        int padding = context.getResources().getDimensionPixelOffset(R.dimen.radius)/2;
+        int padding = context.getResources().getDimensionPixelOffset(R.dimen.radius)/8;
         this.setPadding(padding, padding, padding, padding);
         this.setLayoutParams(params);
         textView = (TextView) LayoutInflater.from(context).inflate(R.layout.item_total_chaos_cell_view, null, false);
         textView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        textView.setBackgroundColor(normalColor);
-        textView.setTextColor(context.getResources().getColor(R.color.white));
+        textView.setTextColor(context.getResources().getColor(R.color.black));
         textView.setText(String.format(Locale.ROOT,"%d", cellTotal.getValue()));
         textView.setTextSize(sizeText);
         Log.d("TAG", "Text size: " + sizeText);
@@ -95,7 +95,7 @@ public class CellTotalView extends RelativeLayout implements CellTotal.OnClicked
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                textView.setBackgroundColor(normalColor);
+                textView.setBackgroundDrawable(normalColor);
             }
         }, 100);
     }

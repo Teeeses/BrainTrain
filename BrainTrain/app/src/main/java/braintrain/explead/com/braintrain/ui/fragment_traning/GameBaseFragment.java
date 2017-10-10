@@ -17,13 +17,18 @@ public class GameBaseFragment extends Fragment{
     protected RelativeLayout menuLayout;
     protected RelativeLayout gameLayout;
 
+    public static int MENU = 0, GAME = 1;
+    protected int status = MENU;
+
     public void openMenuLayout() {
+        status = MENU;
         menuLayout.setVisibility(View.VISIBLE);
         gameLayout.setVisibility(View.GONE);
         activity.showViewPager();
     }
 
     public void openGameLayout() {
+        status = GAME;
         menuLayout.setVisibility(View.GONE);
         gameLayout.setVisibility(View.VISIBLE);
         activity.hideViewPager();
@@ -35,5 +40,9 @@ public class GameBaseFragment extends Fragment{
         if (context instanceof MainActivity){
             activity = (MainActivity) context;
         }
+    }
+
+    public int getStatus() {
+        return status;
     }
 }

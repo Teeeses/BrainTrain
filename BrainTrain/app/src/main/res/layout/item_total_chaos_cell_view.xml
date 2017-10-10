@@ -8,6 +8,7 @@
     android:gravity="center"
     android:textStyle="bold"
     android:textSize="@dimen/big_text"
+    android:background="@drawable/bg_border"
     android:clipToPadding="false"
     xmlns:android="http://schemas.android.com/apk/res/android"/>
 

@@ -2,6 +2,7 @@ package braintrain.explead.com.braintrain.views;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import braintrain.explead.com.braintrain.R;
+import braintrain.explead.com.braintrain.views.counting_cells.FieldCountingCellsView;
 
 public class ChoiceForCountingCells extends LinearLayout {
 
@@ -66,8 +68,9 @@ public class ChoiceForCountingCells extends LinearLayout {
             paramsTextView.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
             textView.setLayoutParams(paramsTextView);
             textView.setGravity(Gravity.CENTER);
-            textView.setBackgroundColor(Color.BLACK);
+            textView.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_round_black_btn));
             textView.setAlpha(0.7f);
+
             textView.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.standard_text));
             textView.setTextColor(Color.WHITE);
             textView.setText(String.format(Locale.ROOT, "%d", choiceArray.get(i)));

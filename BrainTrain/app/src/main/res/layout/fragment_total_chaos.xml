@@ -1,44 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:id="@+id/rootLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/background" >
+    android:orientation="vertical"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background" >
 
     <RelativeLayout
+        android:id="@+id/menuLayout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/container">
+        android:background="@color/background">
 
-        <Chronometer
-            android:id="@+id/chronometer"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/centerLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/gigant_text"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true">
+
+            <RelativeLayout
+                android:id="@+id/containerImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/buttons"
+                android:layout_alignTop="@+id/buttons"
+                android:layout_alignBottom="@+id/buttons"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:background="@color/color_tab"
+                android:padding="@dimen/standard_margin">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/tvBestTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/standard_text"
+                        android:gravity="center_horizontal"/>
+
+                    <ImageView
+                        android:id="@+id/imageClosed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:layout_above="@+id/textClosedContainer"
+                        android:layout_below="@+id/tvBestTime"
+                        android:layout_marginTop="@dimen/mini_margin"
+                        android:src="@drawable/closed"/>
+
+                    <RelativeLayout
+                        android:id="@+id/textClosedContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/mini_margin"
+                        android:layout_alignParentBottom="true">
+
+                        <TextView
+                            android:id="@+id/textClosed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/standard_text"
+                            android:gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:text="@string/total_inscription"/>
+                    </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/standard_margin"
+                android:paddingRight="@dimen/standard_margin"
+                android:layout_alignParentRight="true" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btn66"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/standard_text"
+                        android:textColor="@color/black"
+                        android:background="@drawable/bg_round_green_btn"
+                        android:text="6 x 6"/>
+
+                    <Button
+                        android:id="@+id/btn77"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/standard_text"
+                        android:textColor="@color/black"
+                        android:background="@drawable/bg_round_white_btn"
+                        android:layout_marginTop="@dimen/mini_margin"
+                        android:text="7 x 7"/>
+
+                    <Button
+                        android:id="@+id/btn88"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/standard_text"
+                        android:textColor="@color/black"
+                        android:background="@drawable/bg_round_white_btn"
+                        android:layout_marginTop="@dimen/mini_margin"
+                        android:text="8 x 8"/>
+
+                    <Button
+                        android:id="@+id/btn99"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/standard_text"
+                        android:textColor="@color/black"
+                        android:background="@drawable/bg_round_white_btn"
+                        android:layout_marginTop="@dimen/mini_margin"
+                        android:text="9 x 9"/>
+
+                    <Button
+                        android:id="@+id/btn1010"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/standard_text"
+                        android:textColor="@color/black"
+                        android:background="@drawable/bg_round_white_btn"
+                        android:layout_marginTop="@dimen/mini_margin"
+                        android:text="10 x 10"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/centerLayout"
+            android:padding="@dimen/standard_margin">
+
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/more_standard_text"
+                android:textColor="@color/white"
+                android:padding="@dimen/mini_margin"
+                android:textStyle="bold"
+                android:background="@color/color_tab"
+                android:layout_toLeftOf="@+id/btnEmpty"
+                android:textAllCaps="false"
+                android:text="Начать"/>
+
+            <Button
+                android:id="@+id/btnEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/standard_text"
+                android:background="@drawable/bg_round_white_btn"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:visibility="invisible"
+                android:layout_alignParentRight="true"
+                android:text="10 x 10"/>
+        </RelativeLayout>
+
     </RelativeLayout>
+
 
     <RelativeLayout
-        android:id="@+id/container"
+        android:id="@+id/gameLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" >
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
-        <braintrain.explead.com.braintrain.views.total_chaos_views.FieldTotalChaosView
-            android:id="@+id/fieldView"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/container">
+
+            <Chronometer
+                android:id="@+id/chronometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/gigant_text"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@color/white"/>
+            android:layout_centerInParent="true" >
 
-        <braintrain.explead.com.braintrain.views.TimeCountingView
-            android:id="@+id/countingView"
-            android:layout_width="400dp"
-            android:layout_height="400dp"/>
+            <braintrain.explead.com.braintrain.views.total_chaos_views.FieldTotalChaosView
+                android:id="@+id/fieldView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@color/white"/>
+
+            <braintrain.explead.com.braintrain.views.TimeCountingView
+                android:id="@+id/countingView"
+                android:layout_width="400dp"
+                android:layout_height="400dp"/>
+        </RelativeLayout>
     </RelativeLayout>
-
 
 </RelativeLayout>

@@ -1,10 +1,10 @@
 package braintrain.explead.com.braintrain.ui;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.support.v4.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.github.florent37.bubbletab.BubbleTab;
@@ -13,9 +13,9 @@ import braintrain.explead.com.braintrain.R;
 import braintrain.explead.com.braintrain.adapters.MyPagerAdapter;
 import braintrain.explead.com.braintrain.app.App;
 import braintrain.explead.com.braintrain.ui.fragment_traning.CountingCellsFragment;
+import braintrain.explead.com.braintrain.ui.fragment_traning.GameBaseFragment;
 import braintrain.explead.com.braintrain.ui.fragment_traning.RepeatBunchFragment;
-import braintrain.explead.com.braintrain.ui.fragments_menu.MenuCountingCellsFragment;
-import braintrain.explead.com.braintrain.ui.fragments_menu.MenuTotalChaosFragment;
+import braintrain.explead.com.braintrain.ui.fragment_traning.TotalChaosFragment;
 import braintrain.explead.com.braintrain.utils.Utils;
 import github.chenupt.springindicator.viewpager.ScrollerViewPager;
 
@@ -25,8 +25,8 @@ public class MainActivity extends BaseActivity {
     private MyPagerAdapter adapter;
     private BubbleTab bubbleTab;
 
-    private Fragment[] fragments = {
-            new MenuTotalChaosFragment(), new RepeatBunchFragment(), new CountingCellsFragment()
+    private GameBaseFragment[] fragments = {
+            new TotalChaosFragment(), new RepeatBunchFragment(), new CountingCellsFragment()
     };
 
     @Override
@@ -41,36 +41,50 @@ public class MainActivity extends BaseActivity {
         App.setHeightScreen(displaymetrics.heightPixels);
 
         viewPager = (ScrollerViewPager) findViewById(R.id.view_pager);
-
-
         bubbleTab = (BubbleTab) findViewById(R.id.bubbleTab);
-        viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), fragments));
+
+        adapter = new MyPagerAdapter(getSupportFragmentManager(), fragments);
+        viewPager.setAdapter(adapter);
         bubbleTab.setupWithViewPager(viewPager);
     }
 
     public void hideViewPager() {
         bubbleTab.setVisibility(View.GONE);
-        viewPager.setEnabled(false);
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                return true;
+            }
+        });
     }
 
     public void showViewPager() {
         bubbleTab.setVisibility(View.VISIBLE);
-        viewPager.setEnabled(true);
+        viewPager.setOnTouchListener(null);
     }
 
     @Override
     public void onBackPressed() {
         int currentPosition = viewPager.getCurrentItem();
-        Fragment fragment = fragments[currentPosition];
-        if(fragment instanceof CountingCellsFragment) {
-            ((CountingCellsFragment)fragment).openMenuLayout();
+        GameBaseFragment fragment = fragments[currentPosition];
+        if(fragment.getStatus() == GameBaseFragment.GAME) {
+            fragment.openMenuLayout();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getResources().getString(R.string.do_you_want_go_out));
+            builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    finish();
+                }
+            });
+            builder.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
         }
-    }
-
-    public void openGameActivity(int mode, int level) {
-        Intent intent = new Intent(MainActivity.this, GameActivity.class);
-        intent.putExtra("mode", mode);
-        intent.putExtra("level", level);
-        startActivity(intent);
     }
 }

@@ -4,4 +4,8 @@
     <string name="total_inscription">Пройдите предыдущий уровень за %s секунд.</string>
     <string name="best_time">Лучшее время - %s</string>
 
+    <string name="do_you_want_go_out">Действительно желаете выйти?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+
 </resources>

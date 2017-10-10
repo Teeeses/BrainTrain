@@ -11,9 +11,6 @@ import braintrain.explead.com.braintrain.R;
 import braintrain.explead.com.braintrain.logic.total_chaos.CellTotal;
 import braintrain.explead.com.braintrain.logic.total_chaos.FieldTotalChaos;
 
-/**
- * Created by develop on 25.09.2017.
- */
 
 public class FieldTotalChaosView extends RelativeLayout implements FieldTotalChaos.OnFieldListener {
 
@@ -25,7 +22,7 @@ public class FieldTotalChaosView extends RelativeLayout implements FieldTotalCha
 
     private Context context;
     private FieldTotalChaos field;
-    private int sizeField;
+    private float sizeField;
 
     private float sizeCell;
 
@@ -54,13 +51,13 @@ public class FieldTotalChaosView extends RelativeLayout implements FieldTotalCha
         this.listener = listener;
     }
 
-    public void setField(int size, int sizeField) {
+    public void setField(int size, float sizeField) {
         field = new FieldTotalChaos(size);
         field.setListener(this);
         this.sizeField = sizeField;
         sizeCell = sizeField/field.getSize();
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(sizeField, sizeField);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)sizeField, (int)sizeField);
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         this.setLayoutParams(params);
 
@@ -68,6 +65,7 @@ public class FieldTotalChaosView extends RelativeLayout implements FieldTotalCha
     }
 
     public void createFieldView() {
+        this.removeAllViews();
         fieldView = new CellTotalView[field.getSize()][field.getSize()];
         float mini_text = context.getResources().getDimension(R.dimen.mini_text);
         float sizeText = mini_text + (10 - field.getSize())*(mini_text/5);

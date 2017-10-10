@@ -3,7 +3,6 @@ package braintrain.explead.com.braintrain.ui.fragment_traning;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,10 @@ public class CountingCellsFragment extends GameBaseFragment {
 
     private Button btnStart;
 
+    private int score = 0;
+    private int trueAnswers = 0;
+    private int mistakAnswers = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
          view = inflater.inflate(R.layout.fragment_counting_cells, container, false);
@@ -50,7 +53,12 @@ public class CountingCellsFragment extends GameBaseFragment {
     public void openGameLayout() {
         super.openGameLayout();
         createField();
-        createViews();
+        choiceForCountingCells.post(new Runnable() {
+            @Override
+            public void run() {
+                createViews();
+            }
+        });
     }
 
     @Override
@@ -70,11 +78,13 @@ public class CountingCellsFragment extends GameBaseFragment {
             public void ok() {
                 createField();
                 createViews();
+
+                trueAnswers++;
             }
 
             @Override
             public void error() {
-
+                mistakAnswers++;
             }
         });
 
