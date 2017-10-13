@@ -23,6 +23,8 @@ import java.util.Locale;
 import braintrain.explead.com.braintrain.R;
 import braintrain.explead.com.braintrain.app.App;
 import braintrain.explead.com.braintrain.beans.ButtonLevel;
+import braintrain.explead.com.braintrain.logic.total_chaos.CellTotal;
+import braintrain.explead.com.braintrain.logic.total_chaos.FieldTotalChaos;
 import braintrain.explead.com.braintrain.ui.BaseActivity;
 import braintrain.explead.com.braintrain.ui.MainActivity;
 import braintrain.explead.com.braintrain.utils.Utils;
@@ -30,7 +32,7 @@ import braintrain.explead.com.braintrain.views.TimeCountingView;
 import braintrain.explead.com.braintrain.views.total_chaos_views.FieldTotalChaosView;
 
 
-public class TotalChaosFragment extends GameBaseFragment implements FieldTotalChaosView.OnTotalChaosListener{
+public class TotalChaosFragment extends GameBaseFragment {
 
     //game
     private FieldTotalChaosView fieldView;
@@ -41,13 +43,18 @@ public class TotalChaosFragment extends GameBaseFragment implements FieldTotalCh
     private ArrayList<ButtonLevel> levels;
     private TextView tvClosed;
     private TextView tvBestTime;
+    private TextView tvCurrentValue;
     private ImageView imageClosed;
     private Button btnStart;
     private Drawable colorActive;
     private Drawable colorPassive;
     private View view;
 
+    private RelativeLayout winLayout;
+    private TextView tvWinTIme;
+
     private int size = 6;
+    private FieldTotalChaos field;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,6 +62,14 @@ public class TotalChaosFragment extends GameBaseFragment implements FieldTotalCh
 
         menuLayout = (RelativeLayout) view.findViewById(R.id.menuLayout);
         gameLayout = (RelativeLayout) view.findViewById(R.id.gameLayout);
+        winLayout = (RelativeLayout) view.findViewById(R.id.winLayout);
+        winLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                winLayout.setVisibility(View.GONE);
+                getActivity().onBackPressed();
+            }
+        });
 
         mChronometer = (Chronometer) view.findViewById(R.id.chronometer);
         fieldView = (FieldTotalChaosView) view.findViewById(R.id.fieldView);
@@ -67,6 +82,8 @@ public class TotalChaosFragment extends GameBaseFragment implements FieldTotalCh
         imageClosed = (ImageView) view.findViewById(R.id.imageClosed);
         tvBestTime = (TextView) view.findViewById(R.id.tvBestTime);
         tvClosed = (TextView) view.findViewById(R.id.textClosed);
+        tvCurrentValue = (TextView) view.findViewById(R.id.tvCurrentValue);
+        tvWinTIme = (TextView) view.findViewById(R.id.tvWinTIme);
 
         btnStart = (Button) view.findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -95,8 +112,36 @@ public class TotalChaosFragment extends GameBaseFragment implements FieldTotalCh
     }
 
     private void createField() {
-        fieldView.setField(size, (int) App.getWidthScreen());
-        fieldView.setListener(this);
+        field = new FieldTotalChaos(size, new FieldTotalChaos.OnFieldListener() {
+            @Override
+            public void onWin() {
+                mChronometer.stop();
+                long time = SystemClock.elapsedRealtime() - mChronometer.getBase();
+                ((BaseActivity)getActivity()).setTotalChaosResult(time, size);
+
+                winLayout.setVisibility(View.VISIBLE);
+                tvWinTIme.setText(String.format(Locale.ROOT, getResources().getString(R.string.result), Utils.millsToString(time)));
+
+                Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.alpha);
+                tvWinTIme.startAnimation(anim);
+            }
+
+            @Override
+            public void onError(CellTotal cellTotal) {
+                fieldView.onError(cellTotal);
+            }
+
+            @Override
+            public void onTrue(CellTotal cellTotal) {
+                fieldView.onTrue(cellTotal);
+            }
+
+            @Override
+            public void onCurrentValue(int value) {
+                tvCurrentValue.setText(String.format(Locale.ROOT, getResources().getString(R.string.current_value), value));
+            }
+        });
+        fieldView.setField(field, (int) App.getWidthScreen());
     }
 
     private void createCounting() {
@@ -113,14 +158,6 @@ public class TotalChaosFragment extends GameBaseFragment implements FieldTotalCh
             }
         });
         countingView.startCounting();
-    }
-
-    @Override
-    public void onWin() {
-        mChronometer.stop();
-        long time = SystemClock.elapsedRealtime() - mChronometer.getBase();
-        ((BaseActivity)getActivity()).setTotalChaosResult(time, size);
-        getActivity().onBackPressed();
     }
 
     public void resetChronometer() {

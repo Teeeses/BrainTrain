@@ -13,6 +13,7 @@ public class FieldTotalChaos {
         void onWin();
         void onError(CellTotal cellTotal);
         void onTrue(CellTotal cellTotal);
+        void onCurrentValue(int value);
     }
 
     private OnFieldListener listener;
@@ -22,10 +23,11 @@ public class FieldTotalChaos {
 
     private int size;
 
-    private int count = 1;
+    private int count;
 
-    public FieldTotalChaos(int size) {
+    public FieldTotalChaos(int size, OnFieldListener listener) {
         this.size = size;
+        this.listener = listener;
         fillNumber();
         create();
     }
@@ -38,6 +40,7 @@ public class FieldTotalChaos {
     }
 
     private void create() {
+        setCount(1);
         field = new CellTotal[size][size];
         for(int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
@@ -59,22 +62,27 @@ public class FieldTotalChaos {
         if(cellTotal.getStatus() == CellTotal.NO_CLICKED) {
             if (cellTotal.getValue() == count) {
                 listener.onTrue(cellTotal);
-                count++;
-                checkWin();
+                if(checkWin()) {
+                    listener.onWin();
+                } else {
+                    setCount(count+1);
+                }
             } else {
                 listener.onError(cellTotal);
             }
         }
     }
 
-    private void checkWin() {
-        if(count > size*size) {
-            listener.onWin();
+    private boolean checkWin() {
+        if(count == size*size) {
+            return true;
         }
+        return false;
     }
 
-    public void setListener(OnFieldListener listener) {
-        this.listener = listener;
+    public void setCount(int count) {
+        this.count = count;
+        listener.onCurrentValue(count);
     }
 
     public int getSize() {

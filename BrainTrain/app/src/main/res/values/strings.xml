@@ -8,4 +8,7 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
 
+    <string name="current_value">Найдите число: %d</string>
+    <string name="result">Рузультат: \n%s</string>
+
 </resources>

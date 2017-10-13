@@ -184,7 +184,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/container">
+            android:layout_above="@+id/tvCurrentValue">
 
             <Chronometer
                 android:id="@+id/chronometer"
@@ -195,6 +195,17 @@
                 android:textStyle="bold"
                 android:layout_centerInParent="true"/>
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvCurrentValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/standard_text"
+            android:layout_above="@+id/container"
+            android:textColor="@color/white"
+            android:padding="@dimen/radius"
+            android:text="Текущий: 6"/>
 
         <RelativeLayout
             android:id="@+id/container"
@@ -214,6 +225,26 @@
                 android:layout_width="400dp"
                 android:layout_height="400dp"/>
         </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/winLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.9"
+        android:visibility="gone"
+        android:background="@color/black">
+
+        <TextView
+            android:id="@+id/tvWinTIme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/gigant_text"
+            android:textColor="@color/white"
+            android:padding="@dimen/radius"
+            android:text="02:54"/>
     </RelativeLayout>
 
 </RelativeLayout>

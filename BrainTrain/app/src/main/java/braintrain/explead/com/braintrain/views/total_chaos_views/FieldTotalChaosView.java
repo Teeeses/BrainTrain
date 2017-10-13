@@ -12,13 +12,7 @@ import braintrain.explead.com.braintrain.logic.total_chaos.CellTotal;
 import braintrain.explead.com.braintrain.logic.total_chaos.FieldTotalChaos;
 
 
-public class FieldTotalChaosView extends RelativeLayout implements FieldTotalChaos.OnFieldListener {
-
-    public interface OnTotalChaosListener {
-        void onWin();
-    }
-
-    private OnTotalChaosListener listener;
+public class FieldTotalChaosView extends RelativeLayout {
 
     private Context context;
     private FieldTotalChaos field;
@@ -47,13 +41,8 @@ public class FieldTotalChaosView extends RelativeLayout implements FieldTotalCha
         this.context = context;
     }
 
-    public void setListener(OnTotalChaosListener listener) {
-        this.listener = listener;
-    }
-
-    public void setField(int size, float sizeField) {
-        field = new FieldTotalChaos(size);
-        field.setListener(this);
+    public void setField(FieldTotalChaos field, float sizeField) {
+        this.field = field;
         this.sizeField = sizeField;
         sizeCell = sizeField/field.getSize();
 
@@ -99,17 +88,10 @@ public class FieldTotalChaosView extends RelativeLayout implements FieldTotalCha
         }
     }
 
-    @Override
-    public void onWin() {
-        listener.onWin();
-    }
-
-    @Override
     public void onError(CellTotal cellTotal) {
         cellTotal.error();
     }
 
-    @Override
     public void onTrue(CellTotal cellTotal) {
         cellTotal.setStatusTrue();
     }
