@@ -3,6 +3,7 @@ package braintrain.explead.com.braintrain.views;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -63,7 +64,7 @@ public class ChoiceForCountingCells extends LinearLayout {
             layout.setLayoutParams(paramsLayout);
             layout.setPadding(4, 4, 4, 4);
 
-            TextView textView = new TextView(context);
+            final TextView textView = new TextView(context);
             RelativeLayout.LayoutParams paramsTextView = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             paramsTextView.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
             textView.setLayoutParams(paramsTextView);
@@ -79,8 +80,23 @@ public class ChoiceForCountingCells extends LinearLayout {
                 @Override
                 public void onClick(View view) {
                     if(trueValue == choiceArray.get(index)) {
+                        textView.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_round_green_btn));
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                textView.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_round_black_btn));
+                            }
+                        }, 100);
                         listener.ok();
                     } else {
+
+                        textView.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_round_red_btn));
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                textView.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_round_black_btn));
+                            }
+                        }, 100);
                         listener.error();
                     }
                 }

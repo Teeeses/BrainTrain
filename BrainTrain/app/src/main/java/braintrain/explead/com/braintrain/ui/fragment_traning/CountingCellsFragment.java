@@ -2,12 +2,14 @@ package braintrain.explead.com.braintrain.ui.fragment_traning;
 
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import braintrain.explead.com.braintrain.R;
 import braintrain.explead.com.braintrain.app.App;
@@ -25,7 +27,8 @@ public class CountingCellsFragment extends GameBaseFragment {
     private View view;
     private int size;
 
-    private Button btnStart;
+    private TextView btnStart;
+    private TextView tvTime;
 
     private int score = 0;
     private int trueAnswers = 0;
@@ -38,27 +41,28 @@ public class CountingCellsFragment extends GameBaseFragment {
         menuLayout = (RelativeLayout) view.findViewById(R.id.menuLayout);
         gameLayout = (RelativeLayout) view.findViewById(R.id.gameLayout);
 
-        btnStart = (Button) view.findViewById(R.id.btnStart);
+        btnStart = (TextView) view.findViewById(R.id.btnStart);
+        tvTime = (TextView) view.findViewById(R.id.tvTime);
         btnStart.setOnClickListener(startGameClick);
 
         choiceForCountingCells = (ChoiceForCountingCells) view.findViewById(R.id.choiceForCountingCells);
         fieldView = (FieldCountingCellsView) view.findViewById(R.id.fieldView);
 
-        openMenuLayout();
+        choiceForCountingCells.post(new Runnable() {
+            @Override
+            public void run() {
+                openMenuLayout();
+            }
+        });
 
         return view;
     }
 
     @Override
     public void openGameLayout() {
-        super.openGameLayout();
         createField();
-        choiceForCountingCells.post(new Runnable() {
-            @Override
-            public void run() {
-                createViews();
-            }
-        });
+        createViews();
+        super.openGameLayout();
     }
 
     @Override
@@ -69,6 +73,19 @@ public class CountingCellsFragment extends GameBaseFragment {
     private void createField() {
         size = 5;
         field = new FieldCountingCells(size);
+    }
+
+    private void createCountingDownTimer() {
+        new CountDownTimer(60000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                tvTime.setText();
+            }
+
+            public void onFinish() {
+                tvTime.setText("done!");
+            }
+        }.start();
     }
 
     private void createViews() {
