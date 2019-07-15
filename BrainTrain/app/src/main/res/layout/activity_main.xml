@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_tab"
     tools:context=".ui.MainActivity">
 
@@ -23,10 +23,9 @@
         android:clipToPadding="false"
         android:background="@color/light_background"
         app:bubbleTab_circleColor="@color/color_tab"
-        app:bubbleTab_circleRatio="1.25"
-        app:bubbleTab_image1="@android:drawable/ic_dialog_info"
-        app:bubbleTab_image2="@android:drawable/ic_dialog_email"
-        app:bubbleTab_image3="@android:drawable/ic_dialog_info" />
+        app:bubbleTab_image1="@drawable/one"
+        app:bubbleTab_image2="@drawable/two"
+        app:bubbleTab_image3="@drawable/three" />
 
 
 </RelativeLayout>

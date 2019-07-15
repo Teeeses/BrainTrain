@@ -1,6 +1,8 @@
 package braintrain.explead.com.braintrain.ui.fragment_traning;
 
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
@@ -17,12 +19,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.appodeal.ads.Appodeal;
+import com.appodeal.ads.RewardedVideoCallbacks;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
 import braintrain.explead.com.braintrain.R;
 import braintrain.explead.com.braintrain.app.App;
 import braintrain.explead.com.braintrain.beans.ButtonLevel;
+import braintrain.explead.com.braintrain.dialogs.DialogCompleted;
 import braintrain.explead.com.braintrain.logic.total_chaos.CellTotal;
 import braintrain.explead.com.braintrain.logic.total_chaos.FieldTotalChaos;
 import braintrain.explead.com.braintrain.ui.BaseActivity;
@@ -46,9 +52,13 @@ public class TotalChaosFragment extends GameBaseFragment {
     private TextView tvCurrentValue;
     private ImageView imageClosed;
     private Button btnStart;
+    private RelativeLayout btnWatchVideo;
     private Drawable colorActive;
     private Drawable colorPassive;
     private View view;
+
+
+    private SoundPool soundPool;
 
     private RelativeLayout winLayout;
     private TextView tvWinTIme;
@@ -70,6 +80,11 @@ public class TotalChaosFragment extends GameBaseFragment {
                 getActivity().onBackPressed();
             }
         });
+
+
+        soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 100);
+        soundPool.load(getActivity(), R.raw.one, 1);
+        soundPool.load(getActivity(), R.raw.sound_win, 2);
 
         mChronometer = (Chronometer) view.findViewById(R.id.chronometer);
         fieldView = (FieldTotalChaosView) view.findViewById(R.id.fieldView);
@@ -93,9 +108,54 @@ public class TotalChaosFragment extends GameBaseFragment {
             }
         });
 
+        btnWatchVideo = (RelativeLayout) view.findViewById(R.id.btnWatchVideo);
+        btnWatchVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Appodeal.show(getActivity(), Appodeal.REWARDED_VIDEO);
+            }
+        });
+        Appodeal.setRewardedVideoCallbacks(new RewardedVideoCallbacks() {
+            @Override
+            public void onRewardedVideoLoaded(boolean isPrecache) {
+                Log.d("Appodeal", "onRewardedVideoLoaded");
+            }
+            @Override
+            public void onRewardedVideoFailedToLoad() {
+                Log.d("Appodeal", "onRewardedVideoFailedToLoad");
+            }
+            @Override
+            public void onRewardedVideoShown() {
+                Log.d("Appodeal", "onRewardedVideoShown");
+            }
+            @Override
+            public void onRewardedVideoFinished(double amount, String name) {
+                Log.d("Appodeal", "onRewardedVideoFinished");
+                watchVideo();
+            }
+            @Override
+            public void onRewardedVideoClosed(boolean finished) {
+                Log.d("Appodeal", "onRewardedVideoClosed");
+
+                btnWatchVideo.setVisibility(View.INVISIBLE);
+            }
+            @Override
+            public void onRewardedVideoExpired() {
+                Log.d("Appodeal", "onRewardedVideoExpired");
+                btnWatchVideo.setVisibility(View.INVISIBLE);
+            }
+        });
+
         openMenuLayout();
 
         return view;
+    }
+
+    private void watchVideo() {
+        btnWatchVideo.setVisibility(View.INVISIBLE);
+        ((BaseActivity)getActivity()).addLevelTotalChaos(size);
+        openMenuLayout();
+        selectButton(levels.get(size-6));
     }
 
     @Override
@@ -111,19 +171,31 @@ public class TotalChaosFragment extends GameBaseFragment {
         create();
     }
 
+    private void win() {
+        soundPool.play(2, 0.5f, 0.5f, 1, 0, 1f);
+        mChronometer.stop();
+        long time = SystemClock.elapsedRealtime() - mChronometer.getBase();
+        ((BaseActivity)getActivity()).setTotalChaosResult(time, size);
+
+        String text = String.format(Locale.ROOT, getResources().getString(R.string.result), Utils.millsToString(time));
+        new DialogCompleted(getActivity(), text, new DialogCompleted.OnDialogCompletedListener() {
+            @Override
+            public void onMenu() {
+                getActivity().onBackPressed();
+            }
+
+            @Override
+            public void onAgain() {
+                openGameLayout();
+            }
+        }).show();
+    }
+
     private void createField() {
         field = new FieldTotalChaos(size, new FieldTotalChaos.OnFieldListener() {
             @Override
             public void onWin() {
-                mChronometer.stop();
-                long time = SystemClock.elapsedRealtime() - mChronometer.getBase();
-                ((BaseActivity)getActivity()).setTotalChaosResult(time, size);
-
-                winLayout.setVisibility(View.VISIBLE);
-                tvWinTIme.setText(String.format(Locale.ROOT, getResources().getString(R.string.result), Utils.millsToString(time)));
-
-                Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.alpha);
-                tvWinTIme.startAnimation(anim);
+                win();
             }
 
             @Override
@@ -138,6 +210,7 @@ public class TotalChaosFragment extends GameBaseFragment {
 
             @Override
             public void onCurrentValue(int value) {
+                soundPool.play(1, 0.5f, 0.5f, 1, 0, 1f);
                 tvCurrentValue.setText(String.format(Locale.ROOT, getResources().getString(R.string.current_value), value));
             }
         });
@@ -239,8 +312,16 @@ public class TotalChaosFragment extends GameBaseFragment {
     public void visibilityButtonStart(boolean value) {
         if(value) {
             btnStart.setVisibility(View.VISIBLE);
+            btnWatchVideo.setVisibility(View.INVISIBLE);
         } else {
             btnStart.setVisibility(View.INVISIBLE);
+
+            int maxLevel = ((BaseActivity)getActivity()).getLevelTotalChaos();
+            if(Appodeal.isLoaded(Appodeal.REWARDED_VIDEO) && size - 1 == maxLevel) {
+                btnWatchVideo.setVisibility(View.VISIBLE);
+            } else {
+                btnWatchVideo.setVisibility(View.INVISIBLE);
+            }
         }
     }
 }

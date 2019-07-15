@@ -10,5 +10,18 @@
 
     <string name="current_value">Найдите число: %d</string>
     <string name="result">Рузультат: \n%s</string>
+    <string name="result_2">Пройдено %s ур.</string>
+    <string name="score">Очков: %s</string>
+    <string name="open_level_video">Открыть уровень</string>
+    <string name="start">Начать</string>
+
+
+    <string name="menu">Menu</string>
+    <string name="again">Снова</string>
+
+    <string name="again_cells">Запомните и повторите загорающиеся клетки!</string>
+    <string name="counting_cells">Попытайтесь посчитать количество клеток, делая это как можно быстрее!</string>
+    <string name="completed_levels">Пройденно уровней: %d</string>
+    <string name="best_result">Лучший результат: %d</string>
 
 </resources>

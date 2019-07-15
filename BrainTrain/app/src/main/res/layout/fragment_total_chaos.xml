@@ -147,18 +147,58 @@
             android:layout_below="@+id/centerLayout"
             android:padding="@dimen/standard_margin">
 
-            <Button
-                android:id="@+id/btnStart"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/more_standard_text"
-                android:textColor="@color/white"
-                android:padding="@dimen/mini_margin"
-                android:textStyle="bold"
-                android:background="@color/color_tab"
-                android:layout_toLeftOf="@+id/btnEmpty"
-                android:textAllCaps="false"
-                android:text="Начать"/>
+                android:layout_toLeftOf="@+id/btnEmpty">
+
+                <Button
+                    android:id="@+id/btnStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/more_standard_text"
+                    android:textColor="@color/white"
+                    android:padding="@dimen/mini_margin"
+                    android:textStyle="bold"
+                    android:background="@color/color_tab"
+                    android:textAllCaps="false"
+                    android:visibility="invisible"
+                    android:text="@string/start"/>
+
+                <RelativeLayout
+                    android:id="@+id/btnWatchVideo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/btnStart"
+                    android:layout_alignRight="@id/btnStart"
+                    android:background="@color/color_tab"
+                    android:layout_alignTop="@id/btnStart"
+                    android:paddingTop="@dimen/mini_margin"
+                    android:paddingBottom="@dimen/mini_margin"
+                    android:paddingRight="@dimen/standard_margin"
+                    android:paddingLeft="@dimen/standard_margin"
+                    android:layout_alignBottom="@id/btnStart">
+
+                    <TextView
+                        android:id="@+id/txtOpenLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/open_level_video"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textSize="@dimen/standard_text"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/youtube"
+                        android:layout_toRightOf="@id/txtOpenLevel"/>
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/btnEmpty"
@@ -170,6 +210,7 @@
                 android:visibility="invisible"
                 android:layout_alignParentRight="true"
                 android:text="10 x 10"/>
+
         </RelativeLayout>
 
     </RelativeLayout>

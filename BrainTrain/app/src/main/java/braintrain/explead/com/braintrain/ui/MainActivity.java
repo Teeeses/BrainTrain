@@ -1,12 +1,16 @@
 package braintrain.explead.com.braintrain.ui;
 
 import android.content.DialogInterface;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.appodeal.ads.Appodeal;
 import com.github.florent37.bubbletab.BubbleTab;
 
 import braintrain.explead.com.braintrain.R;
@@ -33,6 +37,15 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Appodeal.disableNetwork(this, "cheetah");
+        String appKey = "68c94da29fe484a8dd6d01c0f6cf1568d13e60b014ef03a8";
+        Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO);
+        Log.d("Appodeal", "Appodeal initialization!");
+
+
+        soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 100);
+        soundPool.load(this, R.raw.one, 1);
 
         sPref = getSharedPreferences(Utils.APP_PREFERENCES, MODE_PRIVATE);
 

@@ -1,6 +1,7 @@
 package braintrain.explead.com.braintrain.ui;
 
 import android.content.SharedPreferences;
+import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -14,11 +15,19 @@ public class BaseActivity extends AppCompatActivity {
 
     protected SharedPreferences sPref;
 
+    protected SoundPool soundPool;
     public SharedPreferences getPref() {
         return sPref;
     }
 
     private long[] total_time = {30000, 58000, 86000, 124000, 180000};
+
+    public void addLevelTotalChaos(int level) {
+        SharedPreferences.Editor editor = sPref.edit();
+        editor.putInt(Utils.LEVEL_TOTAL_CHAOS, level);
+        editor.apply();
+    }
+
 
     public void setTotalChaosResult(long time, int level) {
         Log.d("TAG", "WRITE TIME - " + Long.toString(time));
@@ -81,5 +90,35 @@ public class BaseActivity extends AppCompatActivity {
 
     public int getLevelTotalChaos() {
         return sPref.getInt(Utils.LEVEL_TOTAL_CHAOS, 6);
+    }
+
+    public void setRepeatBunchResult(int level) {
+        System.out.println("asasa " + level);
+        SharedPreferences.Editor editor = sPref.edit();
+        if(level > sPref.getInt(Utils.REPEAT_BUNCH, 0)) {
+            editor.putInt(Utils.REPEAT_BUNCH, level);
+        }
+        editor.apply();
+    }
+
+    public int getRepeatBunchResult() {
+        return sPref.getInt(Utils.REPEAT_BUNCH, 0);
+    }
+
+
+    public int getCountingCellsResult() {
+        return sPref.getInt(Utils.COUNTING_CELLS, 0);
+    }
+
+    public void setCountingCellsResult(int score) {
+        SharedPreferences.Editor editor = sPref.edit();
+        if(score > sPref.getInt(Utils.COUNTING_CELLS, 0)) {
+            editor.putInt(Utils.COUNTING_CELLS, score);
+        }
+        editor.apply();
+    }
+
+    public SoundPool getSoundPool() {
+        return soundPool;
     }
 }

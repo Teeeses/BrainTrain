@@ -100,7 +100,7 @@ public class FieldRepeatBunchView extends RelativeLayout implements FieldRepeatB
             public void run() {
                 field.extinguishCells();
             }
-        }, 3000);
+        }, 2000);
     }
 
     public void setClickable(boolean value) {

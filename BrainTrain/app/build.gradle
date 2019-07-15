@@ -1,15 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
     defaultConfig {
         applicationId "braintrain.explead.com.braintrain"
-        minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -17,17 +19,48 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        maxProcessCount 2
+        javaMaxHeapSize "2g"
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs-aar'
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.github.chenupt.android:springindicator:1.0.2@aar'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.github.florent37:bubbletab:1.0.0'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.github.chenupt.android:springindicator:1.0.2@aar'
+    implementation 'com.github.florent37:bubbletab:1.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    testImplementation 'junit:junit:4.12'
+
+    implementation 'com.google.android.gms:play-services-ads:17.1.1'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+    implementation name: 'adcolony-3.3.4', ext: 'aar'
+    implementation name: 'mobvista-8.11.3-alphab', ext: 'aar'
+    implementation name: 'mobvista-8.11.3-common', ext: 'aar'
+    implementation name: 'mobvista-8.11.3-interstitial', ext: 'aar'
+    implementation name: 'mobvista-8.11.3-interstitialvideo', ext: 'aar'
+    implementation name: 'mobvista-8.11.3-mvdownloads', ext: 'aar'
+    implementation name: 'mobvista-8.11.3-mvjscommon', ext: 'aar'
+    implementation name: 'mobvista-8.11.3-mvnative', ext: 'aar'
+    implementation name: 'mobvista-8.11.3-nativeex', ext: 'aar'
+    implementation name: 'mobvista-8.11.3-playercommon', ext: 'aar'
+    implementation name: 'mobvista-8.11.3-reward', ext: 'aar'
+    implementation name: 'mobvista-8.11.3-videocommon', ext: 'aar'
+    implementation name: 'mobvista-8.11.3-videofeeds', ext: 'aar'
+    implementation name: 'mobvista-8.11.3-videojs', ext: 'aar'
+    implementation name: 'ogury-3.0.13', ext: 'aar'
 }

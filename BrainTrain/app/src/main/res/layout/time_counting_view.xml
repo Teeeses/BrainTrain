@@ -9,7 +9,7 @@
     android:textStyle="bold"
     android:textColor="@color/white"
     android:textSize="@dimen/gigant_text"
-    android:background="@drawable/circle"
+    android:background="@drawable/circle_bg"
     android:clipToPadding="false"
     android:padding="@dimen/mini_margin"
     xmlns:android="http://schemas.android.com/apk/res/android"/>

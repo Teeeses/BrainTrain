@@ -13,10 +13,47 @@
         android:layout_height="match_parent"
         android:background="@color/background">
 
-        <Button
+        <LinearLayout
+            android:id="@+id/centerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_round_black_btn"
+            android:alpha="0.8"
+            android:padding="@dimen/standard_margin"
+            android:layout_margin="@dimen/standard_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvBestScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/more_standard_text"
+                android:text="@string/completed_levels"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/more_standard_text"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:text="@string/again_cells"/>
+        </LinearLayout>
+
+        <TextView
             android:id="@+id/btnStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/centerLayout"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="@dimen/gigant_text"
             android:text="Начать"/>
     </RelativeLayout>
 
